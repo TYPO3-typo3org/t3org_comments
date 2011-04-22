@@ -57,13 +57,13 @@ class tx_t3orgcomments_hooks {
 		);
 
 		$author = $GLOBALS['TYPO3_DB']->exec_SELECTgetSingleRow(
-			'uid,name,image',
+			'uid,name,tx_t3ouserimage_img_hash',
 			'fe_users',
 			'uid=' . (int) $comment['tx_t3orgcomments_feuser']
 		);
 
 		$params['markers']['###NAME###'] = $author['name'];
-		$params['markers']['###IMAGE###'] = "/fileadmin/" . $author['image'];
+		$params['markers']['###IMAGE###'] = "/fileadmin/" . $author['tx_t3ouserimage_img_hash'] . "-big.jpg";
 
 		return $params['markers'];
 	}
