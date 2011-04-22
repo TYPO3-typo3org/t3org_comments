@@ -17,24 +17,20 @@
 				COMMENT_DATE	- date when posted
 				COMMENT_CONTENT	- content of the comment (nl2br + htmlspecialchars)
 		-->
-		<div class="tx-comments-comment">
-			<div class="tx-comments-content-info">
-				<span class="tx-comments-user-avatar">
-					<img src="###IMAGE###" />
-				</span>
-				<span class="tx-comments-user-name">
+		<div class="b-comment tx-comments-comment">
+			<dl class="tx-comments-content-info b-comment">
+				<dt class="tx-comments-comment-name b-comment-author">
+					<span class="tx-comments-user-avatar">
+						<img src="###IMAGE###" />
+					</span>
 					<a href="###USERPROFILE###">###NAME###</a>
-				</span>
-				<span class="tx-comments-comment-date">
-					###COMMENT_DATE###
-				</span>
-			</div>
-			
-			<div class="tx-comments-comment-content">
-				<p>###COMMENT_CONTENT###</p>
-			</div>
+					<span class="tx-comments-comment-date b-comment-date">###COMMENT_DATE###</span>
+				</dt>
+				<dd class="tx-comments-comment-content b-comment-body">
+					###COMMENT_CONTENT###
+				</dd>
+			</dl>
 		</div>
-		<div style="clear:both"></div>
 		<!-- ###SINGLE_COMMENT### end -->
 	<!-- ###CONTENT### end -->
 
