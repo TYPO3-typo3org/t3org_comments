@@ -37,15 +37,14 @@
 <hr />
 
 <h4>No comments (replaces ###SINGLE_COMMENT###)</h4>
-<!-- ###NO_COMMENTS### begin -->
-###TEXT_NO_COMMENTS###
-<!-- ###NO_COMMENTS### end -->
+<!-- ###NO_COMMENTS### begin --><!-- ###NO_COMMENTS### end -->
 <hr />
 
 <!-- ###COMMENT_FORM### begin
 	This subpart formats comment form
 -->
-	<hr />
+
+	###T3O_HR###
 	<a name="comment-form"></a>
 	<h4>###TEXT_ADD_COMMENT###</h4>
 	###TOP_MESSAGE###
@@ -54,6 +53,8 @@
 		<input type="hidden" name="tx_comments_pi1[itemurlchk]" value="###CURRENT_URL_CHK###" />
 		<div class="b-form">
 			<div class="b-form-row">
+				<label>Name:</label>
+				<div class="b-form-inputs"><p>###FIRSTNAME### ###LASTNAME###</p></div>
 				<label for="tx_comments_pi1_content">Message (required):</label>
 				<div class="b-form-inputs">
 					<textarea name="tx_comments_pi1[content]" id="tx_comments_pi1_content">###CONTENT###</textarea>

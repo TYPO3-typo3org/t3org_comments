@@ -97,7 +97,20 @@ class tx_t3orgcomments_hooks {
 		$markers = $params['markers'];
 		$template = $params['template'];
 		
+		// wrap top message in according containers (warning, error, ok)
 		$markers['###TOP_MESSAGE###'] = $this->getTopMessage($markers['###TOP_MESSAGE###'], $pObj);
+		
+		// display <hr /> only if there are comments
+		$countRecords = intval($GLOBALS['TYPO3_DB']->exec_SELECTcountRows(
+			'*',
+			'tx_comments_comments',
+			$pObj->where
+		));
+		$markers['###T3O_HR###'] = $countRecords > 0 ? '<hr />' : '';
+		
+		//
+		$markers['###T3O_PLEASELOGIN###'] = $pObj->cObj->cObjGetSingle($pObj->conf['t3o_pleaselogin'],$pObj->conf['t3o_pleaselogin.']);
+		
 		return $markers;
 	}
 	
