@@ -46,14 +46,15 @@
 	This subpart formats comment form
 -->
 	<hr />
+	<a name="comment-form"></a>
 	<h4>###TEXT_ADD_COMMENT###</h4>
 	###TOP_MESSAGE###
-	<form action="###ACTION_URL###" method="post">
+	<form action="###ACTION_URL####comment-form" method="post">
 		<input type="hidden" name="tx_comments_pi1[itemurl]" value="###CURRENT_URL###" />
 		<input type="hidden" name="tx_comments_pi1[itemurlchk]" value="###CURRENT_URL_CHK###" />
 		<div class="b-form">
 			<div class="b-form-row">
-				<label>Message (required):</label>
+				<label for="tx_comments_pi1_content">Message (required):</label>
 				<div class="b-form-inputs">
 					<textarea name="tx_comments_pi1[content]" id="tx_comments_pi1_content">###CONTENT###</textarea>
 					###ERROR_CONTENT###
