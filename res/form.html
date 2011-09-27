@@ -45,11 +45,9 @@
 <!-- ###COMMENT_FORM### begin
 	This subpart formats comment form
 -->
-
-###TOP_MESSAGE###
-
 	<hr />
 	<h4>###TEXT_ADD_COMMENT###</h4>
+	###TOP_MESSAGE###
 	<form action="###ACTION_URL###" method="post">
 		<input type="hidden" name="tx_comments_pi1[itemurl]" value="###CURRENT_URL###" />
 		<input type="hidden" name="tx_comments_pi1[itemurlchk]" value="###CURRENT_URL_CHK###" />
@@ -86,12 +84,13 @@
 <hr />
 
 <!-- ###FORM_TOP_MESSAGE### begin
-	This subpart formats mark for required field
--->
-<div class="tx-comments-form-top-message">
-###MESSAGE###
-</div>
-<!-- ###FORM_TOP_MESSAGE### end -->
+	This subpart formats mark for flash messages
+	
+	Christian Zenker (2011-09-27): Just leave this the way it is.
+	Wrapping as a flashmessage will be done via a hook.
+	@see tx_t3orgcomments_hooks->getTopMessage()
+	
+-->###MESSAGE###<!-- ###FORM_TOP_MESSAGE### end -->
 
 <!-- ###COMMENTING_CLOSED### begin -->
 <div class="tx-comments-closed">

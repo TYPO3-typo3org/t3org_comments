@@ -83,6 +83,78 @@ class tx_t3orgcomments_hooks {
 			$pObj->conf['templateFile'] = 'EXT:t3org_comments/res/form.html';
 		}
 	}
+	
+	/**
+	 * modify TOP_MESSAGE marker to get the look and feel of other flash messages on typo3.org
+	 * 
+	 * @param tx_comments_pi1 $pObj
+	 * @param string $template
+	 * @param array $markers
+	 * @author Christian Zenker <christian.zenker@599media.de>
+	 * @return array markers
+	 */
+	public function addMarkers($params, &$pObj) {
+		$markers = $params['markers'];
+		$template = $params['template'];
+		
+		$markers['###TOP_MESSAGE###'] = $this->getTopMessage($markers['###TOP_MESSAGE###'], $pObj);
+		return $markers;
+	}
+	
+	/**
+	 * get the message shown on top of the form wrapped in the correct container
+	 * 
+	 * @param string $msg
+	 * @param tx_comments_pi1 $pObj
+	 */
+	protected function getTopMessage($msg, $pObj) {
+		if(empty($msg)) {
+			if(count($pObj->formValidationErrors) > 0) {
+				// if: errors in the form 
+				$msg = $pObj->cObj->stdWrap($pObj->pi_getLL('t3oerror.validation'), $pObj->conf['t3o_flashMessage_errorWrap.']);
+			} elseif(t3lib_FlashMessageQueue::getAllMessages()) {
+				// if: form was submitted and is valid
+				$msg = '';
+				foreach(t3lib_FlashMessageQueue::getAllMessagesAndFlush() as $message) {
+					$wrapPath = $message->getSeverity() === t3lib_FlashMessage::OK ?
+						't3o_flashMessage_okWrap.' :
+						($message->getSeverity() === t3lib_FlashMessage::ERROR ? 't3o_flashMessage_okWrap.' : 't3o_flashMessage_noticeWrap.')
+					;
+					$msg .= $pObj->cObj->stdWrap($message, $pObj->conf[$wrapPath]);
+				}
+			}
+			// else: form is just displayed
+		} elseif($msg === $pObj->pi_getLL('error.double.post')) {
+			// if: error because this comment was already posted
+			$msg = $pObj->cObj->stdWrap($msg, $pObj->conf['t3o_flashMessage_errorWrap.']);
+		} elseif($msg === $pObj->pi_getLL('requires.approval')) {
+			// if: comment needs to be approved
+			$msg = $pObj->cObj->stdWrap($msg, $pObj->conf['t3o_flashMessage_noticeWrap.']);
+		} elseif($msg === $pObj->pi_getLL('error_too_many_spam_points')) {
+			// if: error because of too many spam points
+			$msg = $pObj->cObj->stdWrap($msg, $pObj->conf['t3o_flashMessage_errorWrap.']);
+		}
+		
+		return $msg;
+	}
+	
+	/**
+	 * add a flash message to the queue if comment has been sucessfully commited
+	 * 
+	 * @param array $params
+	 * @param tx_comments_pi1 $pObj
+	 * @author Christian Zenker <christian.zenker@599media.de>
+	 */
+	public function processValidComment($params, $pObj) {		
+		$message = t3lib_div::makeInstance(
+		    't3lib_FlashMessage',
+		    $pObj->pi_getLL('t3othankyou.msg'),
+		    '',
+		    t3lib_FlashMessage::OK,
+		    TRUE // store message in session
+		);
+		t3lib_FlashMessageQueue::addMessage($message);
+	}
 
 }
 
