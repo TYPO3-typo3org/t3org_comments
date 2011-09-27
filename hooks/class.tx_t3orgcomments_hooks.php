@@ -34,7 +34,6 @@ class tx_t3orgcomments_hooks {
 	 */
 
 	public function processSubmission($params) {
-
 		$params['record']['tx_t3orgcomments_feuser'] = (int) $GLOBALS['TSFE']->fe_user->user['uid'];
 		
 		return $params['record'];
