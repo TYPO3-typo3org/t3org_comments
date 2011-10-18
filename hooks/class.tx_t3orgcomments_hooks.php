@@ -85,15 +85,46 @@ class tx_t3orgcomments_hooks {
 	}
 	
 	/**
+	 * add marker for all comments
+	 * 
+	 * @param array $params
+	 * @param tx_comments_pi1 $pObj
+	 */
+	public function addCommentMarkers($params, &$pObj) {
+		$markers = $params['markers'];
+		$template = $params['template'];
+		
+		// display <hr /> only if there are comments
+		$countRecords = intval($GLOBALS['TYPO3_DB']->exec_SELECTcountRows(
+			'*',
+			'tx_comments_comments',
+			$pObj->where
+		));
+		
+		$pObj->cObj->cObjGetSingle('LOAD_REGISTER', array(
+			't3o_num_comments' => $countRecords
+		));
+		
+		$markers['###T3O_TITLE###'] = $pObj->cObj->cObjGetSingle($pObj->conf['t3o_title'],$pObj->conf['t3o_title.']);
+		
+		$pObj->cObj->cObjGetSingle('RESTORE_REGISTER');
+		
+		return $markers;
+	}
+	
+	
+	
+	/**
 	 * modify TOP_MESSAGE marker to get the look and feel of other flash messages on typo3.org
 	 * 
+	 * @param array $params
 	 * @param tx_comments_pi1 $pObj
 	 * @param string $template
 	 * @param array $markers
 	 * @author Christian Zenker <christian.zenker@599media.de>
 	 * @return array markers
 	 */
-	public function addMarkers($params, &$pObj) {
+	public function addFormMarkers($params, &$pObj) {
 		$markers = $params['markers'];
 		$template = $params['template'];
 		
@@ -106,10 +137,15 @@ class tx_t3orgcomments_hooks {
 			'tx_comments_comments',
 			$pObj->where
 		));
-		$markers['###T3O_HR###'] = $countRecords > 0 ? '<hr />' : '';
 		
-		//
+		$pObj->cObj->cObjGetSingle('LOAD_REGISTER', array(
+			't3o_num_comments' => $countRecords
+		));
+		
+		$markers['###T3O_HR###'] = $pObj->cObj->cObjGetSingle($pObj->conf['t3o_hr'],$pObj->conf['t3o_hr.']);
 		$markers['###T3O_PLEASELOGIN###'] = $pObj->cObj->cObjGetSingle($pObj->conf['t3o_pleaselogin'],$pObj->conf['t3o_pleaselogin.']);
+		
+		$pObj->cObj->cObjGetSingle('RESTORE_REGISTER');
 		
 		return $markers;
 	}
