@@ -107,7 +107,7 @@ class tx_t3orgcomments_hooks {
 		
 		$markers['###T3O_TITLE###'] = $pObj->cObj->cObjGetSingle($pObj->conf['t3o_title'],$pObj->conf['t3o_title.']);
 		
-		$pObj->cObj->cObjGetSingle('RESTORE_REGISTER');
+		$pObj->cObj->cObjGetSingle('RESTORE_REGISTER', array());
 		
 		return $markers;
 	}
@@ -145,7 +145,7 @@ class tx_t3orgcomments_hooks {
 		$markers['###T3O_HR###'] = $pObj->cObj->cObjGetSingle($pObj->conf['t3o_hr'],$pObj->conf['t3o_hr.']);
 		$markers['###T3O_PLEASELOGIN###'] = $pObj->cObj->cObjGetSingle($pObj->conf['t3o_pleaselogin'],$pObj->conf['t3o_pleaselogin.']);
 		
-		$pObj->cObj->cObjGetSingle('RESTORE_REGISTER');
+		$pObj->cObj->cObjGetSingle('RESTORE_REGISTER', array());
 		
 		return $markers;
 	}
