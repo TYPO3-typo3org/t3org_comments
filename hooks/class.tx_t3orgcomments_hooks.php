@@ -63,7 +63,7 @@ class tx_t3orgcomments_hooks {
 
 		$params['markers']['###NAME###'] = $author['name'];
 		if ( $author['tx_t3ouserimage_img_hash'] != '' ) {
-			$params['markers']['###IMAGE###'] = '/uploads/tx_t3ouserimage/' . $author['tx_t3ouserimage_img_hash'] . '-mid.jpg';
+			$params['markers']['###IMAGE###'] = '<img src="/uploads/tx_t3ouserimage/' . $author['tx_t3ouserimage_img_hash'] . '-big.jpg" alt="' . $author['name'] . '" width="60"/>';
 		} else {
 			$params['markers']['###IMAGE###'] = '';
 		}
